@@ -96,6 +96,120 @@ given()
     .body("field", equalTo("expectedValue"));
 ```
 
+### Understanding Given-When-Then Pattern:
+
+REST Assured follows the **BDD (Behavior-Driven Development)** style using the **Given-When-Then** pattern, which makes tests highly readable and self-documenting.
+
+#### 🔹 **GIVEN** - Test Setup & Request Preparation
+**Purpose:** Set up the preconditions and prepare the request
+
+**What you do here:**
+- Configure request headers
+- Add query parameters or path parameters
+- Set request body (JSON, XML, form data)
+- Add authentication credentials
+- Set cookies
+- Configure content type
+
+**Example:**
+```java
+given()
+    .header("Authorization", "Bearer token123")
+    .header("Content-Type", "application/json")
+    .queryParam("userId", "12345")
+    .body("{\"name\":\"John\", \"age\":30}")
+```
+
+**Think of it as:** *"GIVEN I have these request configurations..."*
+
+---
+
+#### 🔹 **WHEN** - Execute the Action
+**Purpose:** Perform the actual HTTP operation (the action being tested)
+
+**What you do here:**
+- Specify the HTTP method (GET, POST, PUT, DELETE, PATCH, etc.)
+- Specify the endpoint/URL path
+- Trigger the API call
+
+**Example:**
+```java
+.when()
+    .post("/api/users")
+```
+
+**Think of it as:** *"WHEN I send a POST request to /api/users..."*
+
+---
+
+#### 🔹 **THEN** - Validate the Response
+**Purpose:** Assert and verify the response meets expectations
+
+**What you do here:**
+- Validate HTTP status code
+- Verify response headers
+- Assert response body content
+- Check response time
+- Extract data from response
+- Validate JSON/XML structure
+
+**Example:**
+```java
+.then()
+    .statusCode(201)
+    .header("Content-Type", "application/json")
+    .body("name", equalTo("John"))
+    .body("age", equalTo(30))
+    .body("id", notNullValue())
+```
+
+**Think of it as:** *"THEN I expect the response to have status 201 and contain these values..."*
+
+---
+
+### 📖 **Complete Example with Explanation:**
+
+```java
+@Test
+public void testCreateUser() {
+    // GIVEN: Prepare the request with user data
+    given()
+        .contentType(ContentType.JSON)           // Set content type
+        .header("Authorization", "Bearer xyz")   // Add auth header
+        .body("{\"name\":\"Alice\",\"age\":25}") // Set request body
+
+    // WHEN: Send POST request to create user
+    .when()
+        .post("/api/users")
+
+    // THEN: Verify the response
+    .then()
+        .statusCode(201)                         // Expect 201 Created
+        .body("name", equalTo("Alice"))          // Verify name
+        .body("age", equalTo(25))                // Verify age
+        .body("id", notNullValue());             // Ensure ID is generated
+}
+```
+
+**This reads like a sentence:**
+> "**Given** I have a JSON request with user data and authorization,
+> **When** I send a POST request to /api/users,
+> **Then** I expect a 201 status code and the response to contain the user details."
+
+---
+
+### ✅ **Benefits of Given-When-Then:**
+
+| Benefit | Description |
+|---------|-------------|
+| **Readability** | Tests read like plain English, easy to understand |
+| **Structure** | Clear separation of setup, action, and validation |
+| **Maintainability** | Easy to modify and extend tests |
+| **Documentation** | Tests serve as living documentation of API behavior |
+| **Collaboration** | Non-technical stakeholders can understand test scenarios |
+
+---
+
 ### Project Structure:
 ```
 src/
