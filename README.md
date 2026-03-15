@@ -759,7 +759,7 @@ Body:
 DELETE https://httpbin.org/delete
 Headers:
   Authorization: Bearer token123
-  X-Request-ID: delete-001
+  X-Custom-Header: delete-001
 ```
 
 **Sample API Response:**
@@ -767,7 +767,7 @@ Headers:
 {
   "headers": {
     "Authorization": "Bearer token123",
-    "X-Request-Id": "delete-001"
+    "X-Custom-Header": "delete-001"
   }
 }
 ```
