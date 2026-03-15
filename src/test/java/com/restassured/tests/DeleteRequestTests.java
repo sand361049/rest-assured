@@ -62,14 +62,14 @@ public class DeleteRequestTests extends BaseTest {
         given()
             .log().all()
             .header("Authorization", "Bearer token123")
-            .header("X-Request-ID", "delete-001")
+            .header("X-Custom-Header", "delete-001")
         .when()
             .delete("/delete")
         .then()
             .log().all()
             .statusCode(200)
             .body("headers.Authorization", equalTo("Bearer token123"))
-            .body("headers.X-Request-Id", equalTo("delete-001"));
+            .body("headers.X-Custom-Header", equalTo("delete-001"));
     }
 }
 
