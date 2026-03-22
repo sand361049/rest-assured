@@ -37,7 +37,7 @@ The Benefit: You can write a single script that runs on Chrome, Firefox, or Safa
 ## Where have you used the OPPS concepts in your Project?
 OPPS is the backbone that transforms collection of scripts into a professional, maintainable framework and it is used heavily used in my project. Here are few examples from my project. 
 
-1.**Base test Class (Inheritance)** : In my project there is base class which contains methods for *`@BeforeMethod` (initializing the driver)* and *`@AfterMethod` (closing the browser)*. Every specific test class  "inherits" from this BaseTest.
+1.**Base test Class (Inheritance)** : In my project there is base class which contains methods for *`@BeforeMethod` (initializing the driver)* and *`@AfterMethod` (closing the browser)*. Every specific test class  "inherits" from the base class.
 
 2.**POM (Encapsulation)**: We are using Page Object Model which serves purpose of `encapsulation`. Each Page is class. The locators like `buttons`, `text fields` etc are private variables, and the actions like *`clicking`*, *`typing`* are public methods 
 
