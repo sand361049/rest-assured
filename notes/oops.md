@@ -1,4 +1,4 @@
-# OPPS in Automation Testing
+# OOPS in Automation Testing
 
 In automation testing, Object-Oriented Programming (OOP) is the backbone that transforms a collection of scripts into a professional, maintainable framework. It allows you to model the application as objects rather than just lines of code.
 
