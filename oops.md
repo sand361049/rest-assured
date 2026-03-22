@@ -34,7 +34,7 @@ Method Overriding: You have a generic click() method in your BasePage, but for a
 
 The Benefit: You can write a single script that runs on Chrome, Firefox, or Safari by passing different driver objects to the same interface.
 
-## Where have you used the OPPS concepts in your Project.
+## Where have you used the OPPS concepts in your Project?
 OPPS is the backbone that transforms collection of scripts into a professional, maintainable framework and it is used heavily used in my project. Here are few examples from my project. 
 
 1.**Base test Class (Inheritance)** : In my project there is base class which contains methods for *`@BeforeMethod` (initializing the driver)* and *`@AfterMethod` (closing the browser)*. Every specific test class  "inherits" from this BaseTest.
