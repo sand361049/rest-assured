@@ -50,7 +50,7 @@ A **Hybrid Framework** is a combination of two or more of the frameworks mention
 
 ## Why is it Preferred?
 
-Each framework has some advantages and some shortcomings. So for largescale production grade applicatin single framework is not very useful. So often more than one framework is used to meet the requirement.
+Each framework has some pros and cons. So for largescale production grade applicatin single framework is not very useful. So often more than one framework is used to meet the requirement.
 
 * **Maximum Reusability:** By using modular functions and keywords, you write code once and use it across hundreds of test cases.
 * **Ease of Maintenance:** If a UI element changes (like a button ID), you only update it in one central repository rather than in every single test script.
