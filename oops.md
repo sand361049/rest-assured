@@ -14,14 +14,14 @@ The Benefit: Your actual test scripts look like human-readable steps (e.g., logi
 **2. Encapsulation (Data Hiding and Bundling)**
 This is most famously used in the Page Object Model (POM) design pattern.
 
-Common Use Case: Each web page is a class. The locators (buttons, text fields) are private variables, and the actions (clicking, typing) are public methods.
+Common Use Case: Each web page is a class. The locators (`buttons`, `text fields`) are private variables, and the actions (`clicking`, `typing`) are public methods.
 
 The Benefit: If a developer changes the ID of a "Submit" button, you only update it in one variable within that specific page class. Your test scripts remain untouched because they only call the public method.
 
 **3. Inheritance (Reusability of Common Logic)**
 Inheritance prevents you from writing the same setup and teardown code repeatedly.
 
-Common Use Case: A BaseTest class contains methods for @BeforeMethod (initializing the driver) and @AfterMethod (closing the browser). Every specific test class (e.g., LoginTest, CheckoutTest) "extends" or "inherits" from this BaseTest.
+Common Use Case: A BaseTest class contains methods for `@BeforeMethod` (initializing the driver) and `@AfterMethod` (closing the browser). Every specific test class (e.g., LoginTest, CheckoutTest) "extends" or "inherits" from this BaseTest.
 
 The Benefit: You don't have to initialize the browser or load config files in every single test file.
 
@@ -35,8 +35,10 @@ Method Overriding: You have a generic click() method in your BasePage, but for a
 The Benefit: You can write a single script that runs on Chrome, Firefox, or Safari by passing different driver objects to the same interface.
 
 ## Where have you used the OPPS concepts in your Project.
-OPPS is the backbone that transforms collection of scripts into a professional, maintainable framework and it is used heavily used in my project. Here are
-few examples from my project. 
+OPPS is the backbone that transforms collection of scripts into a professional, maintainable framework and it is used heavily used in my project. Here are few examples from my project. 
+
 1.**Base test Class (Inheritance)** : In my project there is base class which contains methods for *`@BeforeMethod` (initializing the driver)* and *`@AfterMethod` (closing the browser)*. Every specific test class  "inherits" from this BaseTest.
+
 2.**POM (Encapsulation)**: We are using Page Object Model which serves purpose of `encapsulation`. Each Page is class. The locators like `buttons`, `text fields` etc are private variables, and the actions like *`clicking`*, *`typing`* are public methods 
+
 3.**Interface (Polymorphism)**: We are using interface to define contract/ or `dependency injection`. For example single script can run on different browsers like Crome,Firefox etc just by passing different driver objects to same interface
