@@ -152,6 +152,7 @@ pipeline {
         }
     }
 }
+```
 ### Step 2: Create a Pipeline Job in Jenkins UI
 - Open Jenkins and click New Item on the left sidebar.
 
