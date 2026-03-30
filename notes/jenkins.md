@@ -32,7 +32,7 @@ Before you begin, ensure Jenkins has the necessary tools to talk to Git.
 
 - Enter a name (e.g., my-automation-job).
 
-- Select Freestyle project (best for simple UI-based config) or Pipeline (best for Jenkinsfile scripts).
+- Select **Freestyle project** (best for simple UI-based config) or **Pipeline** (best for Jenkinsfile scripts).
 
 - Click OK.
 
@@ -41,13 +41,13 @@ This is where you link your repository.
 
 - Scroll down to the Source Code Management section.
 
-- Select the Git radio button.
+- Select the **Git** radio button.
 
 - Repository URL: Paste your Git URL (e.g., https://github.com/user/repo.git or your Bitbucket SSH link).
 
 - Credentials: * If the repo is private, click Add > Jenkins.
 
-- Enter your Username and Password (or Secret Text/SSH Key).
+- Enter your **Username** and **Password** (or Secret Text/SSH Key).
 
 - Select those credentials from the dropdown menu.
 
