@@ -187,7 +187,7 @@ pipeline {
 
 - Stage View: Once the build starts, you will see a visual representation of each stage (Checkout, Test, Build) and how long they took.
 
-## Explanation of Jenkins script 
+## Explanation of Jenkinsfile 
 
 ### 1. The Environment (agent)
 agent `any`: This tells Jenkins to run this pipeline on any available node (agent) in the Jenkins environment. If you have multiple servers connected to Jenkins, it will pick the first one with a free "executor" slot.
