@@ -221,3 +221,34 @@ The post section runs after the stages have finished. It is used for `notificati
 
 - **failure**: Runs if any stage fails. This is vital for alerting the team via email or messaging apps so they can fix the code immediately.
 
+## What are Poll SCM and  Github hook Trigger
+
+These are the two primary ways Jenkins "knows" when to start a build after you commit code. The main difference is who starts the conversation: Jenkins asking Git (Polling) or Git telling Jenkins (Webhooks).
+
+### 1. Poll SCM (The "Pull" Method)
+In this setup, Jenkins acts like an eager assistant who checks your repository on a fixed schedule to see if anything has changed.
+
+How it works: You define a schedule using Cron syntax (e.g., every 5 minutes). Jenkins connects to the Git repo, compares the latest commit hash with the previous one, and if they differ, it triggers a build.
+
+Cron Example: H/5 * * * * means "Check every 5 minutes."
+
+Best For: * Internal networks where your Git server (like an on-prem Bitbucket) cannot "see" your Jenkins server over the internet.
+
+Legacy systems that don't support Webhooks.
+
+Downside: It is resource-heavy. If you have 100 jobs polling every minute, your network and CPU will be constantly busy even if no one is coding. It also creates a delay (if you push right after a poll, you wait 5 minutes for the next one).
+
+### 2. GitHub Hook Trigger (The "Push" Method)
+This is the modern, efficient approach. Instead of Jenkins checking constantly, Git sends a notification to Jenkins the split-second a push occurs.
+
+How it works: 
+1.  You check the box "GitHub hook trigger for GITScm polling" in Jenkins.
+2.  You go to your GitHub/Bitbucket repository settings and add a Webhook.
+3.  You provide Jenkins' URL (e.g., https://jenkins.mycompany.com/github-webhook/).
+4.  Whenever a developer pushes code, GitHub sends an HTTP POST request to that URL, and Jenkins starts the build immediately.
+
+Best For: * Most modern DevOps setups.
+
+Teams that want instant feedback on their commits.
+
+Downside: Requires your Jenkins server to be reachable by GitHub (or whichever Git provider you use). If Jenkins is behind a strict firewall, Webhooks won't work without a proxy or tunnel.
