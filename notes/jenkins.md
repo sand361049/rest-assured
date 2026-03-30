@@ -187,3 +187,37 @@ pipeline {
 
 - Stage View: Once the build starts, you will see a visual representation of each stage (Checkout, Test, Build) and how long they took.
 
+## Explaination of Jenkins script 
+
+### 1. The Environment (agent)
+agent `any`: This tells Jenkins to run this pipeline on any available node (agent) in the Jenkins environment. If you have multiple servers connected to Jenkins, it will pick the first one with a free "executor" slot.
+
+### 2. The Sequence of Work (stages)
+The stages block contains the logical steps of your CI/CD process. Each stage shows up as a separate column in the Jenkins UI, making it easy to see where a build failed.
+
+- **stage('Checkout')**: Jenkins connects to the Git repository you configured in the Web UI. The command checkout scm pulls the specific branch and commit that triggered the build.
+
+- **stage('Cleanup')**: Runs `mvn clean`. This is a Maven command that deletes the target folder from previous builds, ensuring you are starting from a fresh state.
+
+- **stage('Install Dependencies')**: Runs `mvn install`. This downloads necessary libraries and installs the project into the local repository so other stages can use them.
+
+- **stage('Test')**: Runs `mvn test`. This executes your unit tests. Crucially, if any test fails, Jenkins stops the pipeline here and marks the build as "Failed."
+
+- **stage('Compile')**: Runs `mvn compile`. This compiles the source code of the project into Java bytecode.
+
+- **stage('Package')**: Runs `mvn package`. This takes the compiled code and wraps it into its distributable format, such as a .jar or .war file.
+
+### 3. The Execution Steps (steps)
+Inside every stage is a steps block. This is where the actual "work" happens.
+
+**sh '...'**: This tells Jenkins to execute a shell command. On a macOS or Linux runner, it opens a terminal and runs the command (like mvn test). On Windows, you would typically use **bat** instead of **sh**.
+
+### 4. Final Actions (post)
+The post section runs after the stages have finished. It is used for `notifications`, `cleanup`, or `reporting`.
+
+- **always**: These steps run regardless of whether the build passed or failed. It's perfect for cleaning up temporary files or workspace logs.
+
+- **success**: Runs only if every single stage completed successfully. This is usually where you would trigger a deployment or send a "Build Passed" Slack message.
+
+- **failure**: Runs if any stage fails. This is vital for alerting the team via email or messaging apps so they can fix the code immediately.
+
