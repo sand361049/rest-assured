@@ -76,6 +76,7 @@ Now, tell Jenkins what to do once it has your code.
 ```
 # Example for a backend project
 mvn clean
+mvn install
 mvn test
 mvn compile
 mvn package
@@ -93,3 +94,95 @@ Click Add post-build action.
 - Under Build History, click the progress bar or the build number (e.g., #1).
 
 - Select Console Output to see the real-time logs of Git cloning your code and running your tests.
+
+## Using Jenkinsfile 
+
+### Step 1: Create the Jenkinsfile in Your Repo
+First, you need to define the instructions for Jenkins. In the root directory of your Git project, create a file named exactly Jenkinsfile (no file extension).
+
+Add a basic Declarative Pipeline structure:
+```
+pipeline {
+    agent any // Runs on any available executor
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Pulls the code from the Git repo defined in the job
+                checkout scm
+            }
+        }
+        stage('Cleanup') {
+            steps {
+                // Example: Running a shell command for a backend project
+                sh 'mvn clean' 
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                // Example: Running a shell command for a backend project
+                sh 'mvn install' 
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('Compile') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Cleaning up workspace...'
+        }
+        success {
+            echo 'Build and Test passed!'
+        }
+        failure {
+            echo 'Build failed. Check the logs.'
+        }
+    }
+}
+### Step 2: Create a Pipeline Job in Jenkins UI
+- Open Jenkins and click New Item on the left sidebar.
+
+- Enter a name for your project (e.g., inventory-service-pipeline).
+
+- Select Pipeline and click OK.
+
+### Step 3: Connect Jenkins to Your Git Repository
+- Scroll down to the Pipeline section at the bottom of the configuration page.
+
+- In the Definition dropdown, change "Pipeline script" to Pipeline script from SCM.
+
+- In the SCM dropdown, select Git.
+
+- Repository URL: Paste your Git repo link (HTTPS or SSH).
+
+- Credentials: Select your pre-configured credentials (Username/Password or SSH Key).
+
+- Branches to build: Enter the branch you want to track (e.g., */main).
+
+### Step 4: Point to Your Jenkinsfile
+- In the Script Path field, ensure it says Jenkinsfile.
+
+- **Note: If your file is inside a subfolder, you would enter path/to/Jenkinsfile **
+
+- Click Save.
+
+### Step 5: Run and Validate
+- Click Build Now on the left menu.
+
+- Jenkins will clone your repo, look for the Jenkinsfile, and start executing the stages you defined.
+
+- Stage View: Once the build starts, you will see a visual representation of each stage (Checkout, Test, Build) and how long they took.
+
