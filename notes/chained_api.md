@@ -19,4 +19,47 @@ and you know only username not user id so you can't directly use delete API
 so here next API call depends on response of first API call
  
 so it is called chained API call
+
+syntax
+``` java
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+public class DeleteUserTest {
+
+    public void deleteUserFlow() {
+
+        // Step 1: Get user by username → extract userId
+        String userId =
+        given()
+            .baseUri("https://api.example.com")
+            .queryParam("username", "john_doe")
+        .when()
+            .get("/users")
+        .then()
+            .statusCode(200)
+            .extract()
+            .path("data[0].id");   // adjust based on response
+
+        // Step 2: Delete user using extracted userId
+        given()
+            .baseUri("https://api.example.com")
+            .pathParam("id", userId)
+        .when()
+            .delete("/users/{id}")
+        .then()
+            .statusCode(204); // or 200 depending on API
+
+        // Step 3: Verify user is deleted
+        given()
+            .baseUri("https://api.example.com")
+            .pathParam("id", userId)
+        .when()
+            .get("/users/{id}")
+        .then()
+            .statusCode(404); // user should not exist
+    }
+}
+
+```
  
