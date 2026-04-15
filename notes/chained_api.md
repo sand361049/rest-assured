@@ -1,5 +1,7 @@
 # What is chained API call ?
 
+Chaining API calls allows you to call an API and then pass some data from this first API call onto subsequent API calls.
+
 suppose you have to delete a user with username "bekar_user"
  
 and there is two APIs
